@@ -1,12 +1,20 @@
+import sys
+from pathlib import Path
+
+# 상위 폴더(루트 경로)를 파이썬 모듈 검색 경로에 추가
+try:
+    current_dir = Path(__file__).resolve().parent
+except NameError:
+    current_dir = Path.cwd()
+
+sys.path.append(str(current_dir.parent))
+
 from openai	import OpenAI
-import os
-from dotenv import load_dotenv
+from config import get_api_key
 
-# .env파일의 환경변수를 불러옵니다.
-load_dotenv()
 
-# 환경 변수에서 API KEY를 가져옵니다.
-api_key = os.getenv("OPENAI_API_KEY")
+# API_KEY 함수 호출하여 사용
+api_key = get_api_key()
 
 # API 키 입력
 client = OpenAI(api_key=api_key)

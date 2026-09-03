@@ -14,7 +14,6 @@ import base64
 
 ##### STT : Speech → Text #####
 
-def STT(audio, client):
 
     filename = "input.mp3"
 

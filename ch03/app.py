@@ -46,4 +46,4 @@ with left_col:
 
 with right_col:
     st.subheader("📋 상세 데이터 목록")
-    st.dataframe(df, use_container_width=True)
+    st.dataframe(df, width='stretch')

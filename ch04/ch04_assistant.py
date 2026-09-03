@@ -16,6 +16,15 @@ import os
 import numpy as np
 import base64
 
+import os
+from dotenv import load_dotenv
+
+# .env파일의 환경변수를 불러옵니다.
+load_dotenv()
+
+# 환경 변수에서 API KEY를 가져옵니다.
+api_key = os.getenv("OPENAI_API_KEY")
+
 ##### 기능 구현 함수 #####
 def STT(audio, client):
     # Whisper 모델이 파일 형태로 입력을 받으므로 input.mp3 파일이란 이름으로 음성 파일을 저장합니다.
