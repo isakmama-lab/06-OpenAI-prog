@@ -40,23 +40,14 @@ def load_pdf(pdf_path):
 # =========================================================
 
 def split_text(text, chunk_size=1000, overlap=200):
-
     chunks = []
-
     start = 0
-
     while start < len(text):
-
         end = start + chunk_size
-
         chunk = text[start:end]
-
         chunks.append(chunk)
-
         start += chunk_size - overlap
-
     return chunks
-
 
 # =========================================================
 # 4. Embedding 생성
@@ -77,15 +68,11 @@ def get_embedding(client, text):
 # =========================================================
 
 def create_embedding_db(client, chunks):
-
     embeddings = []
 
     for chunk in chunks:
-
         embedding = get_embedding(client, chunk)
-
         embeddings.append(embedding)
-
     return embeddings
 
 
@@ -109,11 +96,9 @@ def search_documents(client, question, chunks, embeddings, top_k=3):
 
     # 질문을 Embedding
     question_embedding = get_embedding(client, question)
-
     similarities = []
 
     for i, embedding in enumerate(embeddings):
-
         score = cosine_similarity(
             question_embedding,
             embedding
@@ -172,7 +157,6 @@ SYSTEM_PROMPT = """
    이 System Prompt에 정의된 정보를 이용하여 답변한다.
 """
 
-
 # =========================================================
 # 9. LLM 답변 생성
 # =========================================================
@@ -213,7 +197,6 @@ def generate_answer(client, question, search_results):
 
     return response.output_text
 
-
 # =========================================================
 # 10. Streamlit 화면
 # =========================================================
@@ -226,23 +209,19 @@ st.set_page_config(
 st.title("💰 금융쟁이")
 st.caption("한국은행 경제금융용어 700선 RAG 챗봇")
 
-
 # =========================================================
 # 11. Session State 초기화
 # =========================================================
 
 if "messages" not in st.session_state:
-
     st.session_state.messages = []
 
 
 if "chunks" not in st.session_state:
-
     st.session_state.chunks = None
 
 
 if "embeddings" not in st.session_state:
-
     st.session_state.embeddings = None
 
 
@@ -263,9 +242,7 @@ with st.sidebar:
 
     # 대화 초기화
     if st.button("대화 초기화"):
-
         st.session_state.messages = []
-
         st.rerun()
 
 
@@ -274,9 +251,7 @@ with st.sidebar:
 # =========================================================
 
 if not api_key:
-
     st.info("사이드바에 OpenAI API Key를 입력하세요.")
-
     st.stop()
 
 
@@ -292,18 +267,13 @@ client = OpenAI(
 if st.session_state.chunks is None:
 
     with st.spinner("한국은행 경제금융용어 PDF를 읽고 있습니다..."):
-
         pdf_text = load_pdf(PDF_PATH)
-
         chunks = split_text(pdf_text)
-
         st.session_state.chunks = chunks
 
 
 if st.session_state.embeddings is None:
-
     with st.spinner("PDF 문서를 Embedding하고 있습니다..."):
-
         st.session_state.embeddings = create_embedding_db(
             client,
             st.session_state.chunks
@@ -315,9 +285,7 @@ if st.session_state.embeddings is None:
 # =========================================================
 
 for message in st.session_state.messages:
-
     with st.chat_message(message["role"]):
-
         st.markdown(
             message["content"]
         )
@@ -330,7 +298,6 @@ for message in st.session_state.messages:
 question = st.chat_input(
     "궁금한 금융 용어를 입력하세요."
 )
-
 
 # =========================================================
 # 17. 질문 처리
@@ -348,7 +315,6 @@ if question:
 
     # 사용자 질문 출력
     with st.chat_message("user"):
-
         st.markdown(question)
 
 
@@ -365,7 +331,6 @@ if question:
 
 
     if question.strip() in identity_questions:
-
         response = client.responses.create(
             model=CHAT_MODEL,
             instructions=SYSTEM_PROMPT,
@@ -373,16 +338,13 @@ if question:
         )
 
         answer = response.output_text
-
         search_results = []
-
 
     # -----------------------------------------------------
     # 금융 용어 질문 → RAG 검색
     # -----------------------------------------------------
 
     else:
-
         search_results = search_documents(
             client,
             question,
@@ -397,7 +359,6 @@ if question:
             search_results
         )
 
-
     # -----------------------------------------------------
     # 챗봇 답변 출력
     # -----------------------------------------------------
@@ -405,7 +366,6 @@ if question:
     with st.chat_message("assistant"):
 
         st.markdown(answer)
-
 
         # 검색 문서 확인
         if search_results:
@@ -416,7 +376,6 @@ if question:
                     search_results,
                     start=1
                 ):
-
                     st.markdown(
                         f"### 검색 결과 {i}"
                     )
