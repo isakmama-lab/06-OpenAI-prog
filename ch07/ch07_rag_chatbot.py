@@ -9,7 +9,7 @@ from openai import OpenAI
 # 1. 기본 설정
 # =========================================================
 
-PDF_PATH = "2020_경제금융용어 700선_게시.pdf"
+PDF_PATH = "경제금융용어 700선.pdf"
 
 EMBEDDING_MODEL = "text-embedding-3-small"
 CHAT_MODEL = "gpt-4o-mini"
