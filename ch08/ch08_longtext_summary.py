@@ -1,7 +1,16 @@
-from langchain.prompts import PromptTemplate
-from langchain.chains.summarize import load_summarize_chain
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+# 기존 구버전 코드
+# from langchain.prompts import PromptTemplate
+# from langchain.chains.summarize import load_summarize_chain
+
+# 최신 버전용 변경 코드
+from langchain_core.prompts import PromptTemplate
+from langchain_classic.chains.summarize import load_summarize_chain
+# from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_openai import ChatOpenAI
+
+import warnings
+warnings.filterwarnings("ignore")
 
 script = '''한국의 한산한 어촌에서 세계로 뻗어나간 IT 전문가, 박민호의 여정
 박민호는 한국의 동해안에 위치한 작은 어촌마을에서 태어났다. 그 마을은 바다와 맞닿아 있어 매일 아침 갈매기 소리와 함께 하루가 시작되는 곳이었다. 어릴 적 박민호는 종종 아버지의 낡은 어선을 바라보며 꿈을 키웠다. 그 꿈은 바다를 넘어 더 넓은 세상으로 나아가는 것이었다.
@@ -59,9 +68,17 @@ script = '''한국의 한산한 어촌에서 세계로 뻗어나간 IT 전문가
 그의 여정은 아직 끝나지 않았다. 박민호는 이제 새로운 도전을 준비하고 있다. 그는 인공지능 기술을 활용하여 기후 변화 문제에 대응하는 솔루션을 개발하고자 한다. 이를 통해 그는 전 세계적인 문제 해결에 기여하고, 동시에 한국의 기술력을 세계에 알리고자 한다.
 박민호의 이야기는 우리에게 꿈을 향한 열정과 끈기, 그리고 사회에 대한 책임감의 중요성을 일깨워준다. 그의 삶은 기술이 단순히 이윤을 창출하는 도구가 아니라, 세상을 더 나은 곳으로 만들 수 있는 강력한 힘이 될 수 있음을 보여준다. 앞으로도 그는 새로운 도전과 성공을 이뤄낼 것이며, 그의 여정은 많은 이들에게 희망과 용기를 줄 것이다.'''
 
+import os
+from dotenv import load_dotenv
+
+# .env파일의 환경변수를 불러옵니다.
+load_dotenv()
+
+# 환경 변수에서 API KEY를 가져옵니다.
+api_key = os.getenv("OPENAI_API_KEY")
 # 언어모델 설정
 llm = ChatOpenAI(temperature=0,
-        openai_api_key="여러분들의 Key 값",
+        openai_api_key=api_key,
         max_tokens=4000,
         model_name="gpt-4o-mini",
         request_timeout=120

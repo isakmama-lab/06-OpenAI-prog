@@ -9,9 +9,14 @@ import openai
 from pytubefix import YouTube
 
 # 유튜브 영상을 번역, 요약하기 위한 Langchain 패키지 추가
-from langchain.prompts import PromptTemplate
-from langchain.chains.summarize import load_summarize_chain
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+# from langchain.prompts import PromptTemplate
+# from langchain.chains.summarize import load_summarize_chain
+# from langchain.text_splitter import RecursiveCharacterTextSplitter
+# from langchain_openai import ChatOpenAI
+
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.output_parsers import StrOutputParser
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_openai import ChatOpenAI
 
 # 필요한 기본 패키지 추가
@@ -19,9 +24,6 @@ import re
 import os
 import shutil
 
-import gradio as gr
-
-from openai import OpenAI
 from dotenv import load_dotenv
 
 
@@ -142,8 +144,8 @@ def main():
             text = text_splitter.create_documents(pages)
 
             # 위에서 준비한 map_prompt와 combine_prompt를 이용하여 두 단계 요약을 준비. run() 해야 실행.
-            chain = load_summarize_chain(llm, chain_type="map_reduce", verbose=False,
-                                            map_prompt=prompt, combine_prompt=combine_prompt)
+            # chain = load_summarize_chain(llm, chain_type="map_reduce", verbose=False,
+            #                                 map_prompt=prompt, combine_prompt=combine_prompt)
 
             # 두 단계 요약의 결과를 저장.
             st.session_state["summarize"] = chain.run(text)

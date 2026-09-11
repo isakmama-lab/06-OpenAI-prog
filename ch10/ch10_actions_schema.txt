@@ -1,0 +1,76 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "SerpApi Search Service",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://serpapi.com"
+    }
+  ],
+  "paths": {
+    "/search": {
+      "get": {
+        "summary": "Use SerpApi for conducting searches",
+        "operationId": "searchNaver",
+        "parameters": [
+          {
+            "name": "api_key",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["개인 API 키"]
+            }
+          },
+          {
+            "in": "query",
+            "name": "engine",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Specifies the search engine to utilize, for instance, 'naver'"
+          },
+          {
+            "in": "query",
+            "name": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The search terms being queried."
+          },
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access denied due to invalid credentials"
+          },
+          "400": {
+            "description": "The request was invalid"
+          }
+        }
+      }
+    }
+  }
+}

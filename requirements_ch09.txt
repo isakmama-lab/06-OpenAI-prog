@@ -1,0 +1,5 @@
+streamlit
+openai
+langchain-core
+langchain-openai
+Pillow
