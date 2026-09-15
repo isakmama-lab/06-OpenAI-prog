@@ -12,4 +12,4 @@ def get_api_key():
     return api_key
 
 # 필요하다면 클라이언트 객체나 키를 변수로 바로 내보낼 수도 있습니다.
-API_KEY = os.getenv("OPENAI_API_KEY")
+# API_KEY = os.getenv("OPENAI_API_KEY")

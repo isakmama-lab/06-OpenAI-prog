@@ -14,7 +14,10 @@ client = OpenAI(api_key=api_key)
 audio_file = open("speech.mp3", "rb")
 
 # whisper 모델에 음원 파일 넣기
-transcript = client.audio.transcriptions.create(model="gpt-4o-mini-transcribe", file=audio_file, response_format="text")
+transcript = client.audio.transcriptions.create(
+    model="gpt-4o-mini-transcribe", 
+    file=audio_file, 
+    response_format="text")
 
 # 결과 보기
 print(transcript)
