@@ -75,6 +75,7 @@ def TTS(text):
             response.stream_to_file(filename)
 
         # 생성된 MP3 파일을 Base64로 변환하여 브라우저에서 자동 재생합니다.
+        # MP3 같은 바이너리 파일을 읽어 → Base64 문자열로 변환하여 → HTML 안에 직접 넣기 위한 과정
         with open(filename, "rb") as f:
             data = f.read()
             b64 = base64.b64encode(data).decode("utf-8")

@@ -27,7 +27,7 @@ client = OpenAI(
 # GPT-4V
 def describe(text):
     response = client.chat.completions.create(
-    model="gpt-5.6-luna",
+    model="gpt-4o-mini",
     messages=[
         {
         "role": "user",
@@ -42,7 +42,7 @@ def describe(text):
         ],
         }
     ],
-    max_completion_tokens=1024,
+    max_tokens=1024,
     )
     return response.choices[0].message.content
 
