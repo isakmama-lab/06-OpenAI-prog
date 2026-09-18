@@ -103,6 +103,7 @@ def trans(text: str) -> str:
 
 def youtube_url_check(url: str) -> bool:
     # YouTube video ID는 일반적으로 11자리입니다.
+    # https://youtu.be/ZZ4B0QUHuNc?si=Nx7xuifeURzHVL5v
     pattern = (
         r"^(https?://)?(www\.)?"
         r"(youtube\.com/watch\?v=|youtu\.be/)"
@@ -209,11 +210,15 @@ def main():
         st.error("YouTube URL을 확인하세요.")
         return
 
-    st.video(youtube_video_url)
+    width = 50
+    side = width / 2
+    _, container, _ = st.columns([side, width, side])
+    with container:
+        st.video(youtube_video_url)
 
-    # URL 입력만으로 유료 API가 실행되지 않도록 버튼 사용
-    if not st.button("영상 요약 시작", type="primary"):
-        return
+        # URL 입력만으로 유료 API가 실행되지 않도록 버튼 사용
+        if not st.button("영상 요약 시작", type="primary"):
+            return
 
     audio_file = None
 

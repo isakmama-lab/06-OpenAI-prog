@@ -66,7 +66,7 @@ load_dotenv()
 
 # 언어모델 설정
 llm = ChatOpenAI(
-    model="gpt-5-mini",
+    model="gpt-5.6-luna",
     temperature=0,
     timeout=120,
 )
